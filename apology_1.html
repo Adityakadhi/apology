@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Very Important Message For You 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #e8657a;
+    --pink-light: #fde8ec;
+    --pink-dark: #c94d63;
+    --cream: #fff9f5;
+    --brown: #5c3d2e;
+    --brown-light: #8b6355;
+    --gold: #d4a843;
+    --choc: #3b1f0f;
+    --choc-light: #7b4a2d;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .petals {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .petal {
+    position: absolute; top: -40px;
+    animation: fall linear infinite;
+    opacity: 0.65;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(-40px) rotate(0deg); opacity: 0.7; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  .container {
+    position: relative; z-index: 1;
+    max-width: 540px; margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 2.5rem; animation: fadeDown 0.8s ease both; }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .tag {
+    display: inline-block;
+    background: var(--pink); color: white;
+    font-size: 11px; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 5px 14px;
+    border-radius: 20px; margin-bottom: 1rem;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 7vw, 40px);
+    color: var(--brown); line-height: 1.2; margin-bottom: 0.75rem;
+  }
+  h1 em { font-style: italic; color: var(--pink); }
+  .subtitle { font-size: 15px; color: var(--brown-light); line-height: 1.6; }
+
+  /* Hero card */
+  .hero-card {
+    background: white; border-radius: 24px;
+    padding: 2.5rem 2rem; text-align: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 40px rgba(232,101,122,0.12);
+    animation: fadeUp 0.9s 0.2s ease both;
+    position: relative; overflow: hidden;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+    background: linear-gradient(90deg, var(--pink-light), var(--pink), var(--gold), #f7a8b8, var(--pink-light));
+  }
+  .big-emoji {
+    font-size: 72px; display: block; margin-bottom: 1rem;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+  .hero-card h2 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--brown); margin-bottom: 0.75rem; }
+  .hero-card p  { font-size: 15px; color: var(--brown-light); line-height: 1.7; max-width: 360px; margin: 0 auto; }
+
+  /* Letter */
+  .letter-card {
+    background: white; border-radius: 20px; padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 30px rgba(232,101,122,0.08);
+    animation: fadeUp 0.9s 0.35s ease both;
+  }
+  .letter-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--pink);
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;
+  }
+  .letter-label::after { content: ''; flex: 1; height: 1px; background: var(--pink-light); }
+  .letter-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; color: var(--brown); line-height: 1.85; font-style: italic;
+  }
+  .letter-sig { margin-top: 1.25rem; font-size: 14px; color: var(--brown-light); }
+
+  /* Gifts section */
+  .section-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--brown-light);
+    margin-bottom: 1rem; text-align: center;
+    animation: fadeUp 0.9s 0.45s ease both;
+  }
+
+  /* Horizontal scroll gift row */
+  .gifts-scroll {
+    display: flex; gap: 12px;
+    overflow-x: auto; padding-bottom: 8px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.9s 0.5s ease both;
+    scrollbar-width: none;
+  }
+  .gifts-scroll::-webkit-scrollbar { display: none; }
+
+  .gift-card {
+    background: white; border-radius: 20px;
+    padding: 1.4rem 1rem 1.1rem; text-align: center;
+    box-shadow: 0 2px 20px rgba(232,101,122,0.08);
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    border: 2.5px solid transparent;
+    position: relative;
+    flex: 0 0 130px;
+  }
+  .gift-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(232,101,122,0.18); }
+  .gift-card.picked { border-color: var(--pink); background: var(--pink-light); }
+  .gift-card.picked::after {
+    content: '✓'; position: absolute; top: 7px; right: 10px;
+    font-size: 13px; color: var(--pink); font-weight: 700;
+  }
+
+  /* Custom illustrated gift visuals */
+  .gift-visual {
+    width: 62px; height: 62px; margin: 0 auto 0.6rem;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    font-size: 38px;
+    position: relative;
+  }
+  .gift-visual.roses-bg  { background: #fce8ed; }
+  .gift-visual.teddy-bg  { background: #fdf0e6; }
+  .gift-visual.lindor-bg { background: #fff0f3; }
+  .gift-visual.godiva-bg { background: #f5ece3; }
+  .gift-visual.mcflurry-bg { background: #eef6ff; }
+
+  .gift-name  { font-size: 13px; font-weight: 500; color: var(--brown); margin-bottom: 2px; }
+  .gift-sub   { font-size: 11px; color: var(--brown-light); line-height: 1.4; }
+
+  /* Wish list summary */
+  .wishlist {
+    background: white; border-radius: 18px; padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 20px rgba(232,101,122,0.07);
+    animation: fadeUp 0.9s 0.55s ease both;
+    min-height: 56px;
+  }
+  .wishlist-title {
+    font-size: 11px; font-weight: 500; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--pink); margin-bottom: 0.6rem;
+  }
+  .wishlist-items { display: flex; flex-wrap: wrap; gap: 6px; }
+  .wish-tag {
+    background: var(--pink-light); color: var(--pink-dark);
+    font-size: 12px; font-weight: 500;
+    padding: 4px 12px; border-radius: 20px;
+  }
+  .wishlist-empty { font-size: 13px; color: var(--brown-light); font-style: italic; }
+
+  /* CTA */
+  .accept-section { text-align: center; animation: fadeUp 0.9s 0.6s ease both; }
+  .accept-btn {
+    display: inline-block; background: var(--pink); color: white;
+    border: none; border-radius: 50px; padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 6px 24px rgba(232,101,122,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+    margin-bottom: 0.75rem; width: 100%; max-width: 340px;
+  }
+  .accept-btn:hover  { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(232,101,122,0.4); }
+  .accept-btn:active { transform: scale(0.97); }
+  .decline-btn {
+    display: block; font-size: 12px; color: var(--brown-light);
+    cursor: pointer; margin: 0.5rem auto 0; background: none; border: none;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: underline; text-decoration-style: dotted;
+  }
+
+  /* Screens */
+  .thankyou { display: none; text-align: center; padding: 3rem 1rem; animation: pop 0.5s ease both; }
+  @keyframes pop {
+    0%   { transform: scale(0.8); opacity: 0; }
+    70%  { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .thankyou .big { font-size: 72px; display: block; margin-bottom: 1rem; }
+  .thankyou h2  { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--brown); margin-bottom: 0.75rem; }
+  .thankyou p   { font-size: 15px; color: var(--brown-light); line-height: 1.6; }
+  .wishlist-summary { margin: 1.2rem auto 0; max-width: 320px; background: var(--pink-light); border-radius: 14px; padding: 1rem 1.25rem; text-align: left; }
+  .wishlist-summary p { font-size: 13px; color: var(--pink-dark); line-height: 1.8; }
+
+  .nope { display: none; text-align: center; padding: 2rem 1rem; animation: pop 0.4s ease both; }
+  .nope .big { font-size: 60px; display: block; margin-bottom: 0.75rem; }
+  .nope h2   { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--brown); margin-bottom: 0.5rem; }
+  .nope p    { font-size: 14px; color: var(--brown-light); margin-bottom: 1.25rem; }
+  .retry-btn {
+    background: var(--pink-light); color: var(--pink);
+    border: none; border-radius: 50px; padding: 0.75rem 2rem;
+    font-size: 14px; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; font-weight: 500;
+  }
+
+  #main-content { transition: opacity 0.3s; }
+
+  /* scroll hint arrow */
+  .scroll-hint {
+    text-align: center; font-size: 11px; color: var(--brown-light);
+    margin-top: -8px; margin-bottom: 1.2rem; letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="petals" id="petals"></div>
+
+<div class="container">
+  <div id="main-content">
+
+    <div class="header">
+      <span class="tag">💌 A message for you</span>
+      <h1>I messed up,<br><em>I'm sorry.</em></h1>
+      <p class="subtitle">Please keep reading. I promise it gets cuter.</p>
+    </div>
+
+    <div class="hero-card">
+      <span class="big-emoji">🌸🧸🍫</span>
+      <h2>From someone who really likes you</h2>
+      <p>I completely misread your text and went full confident-idiot mode. You deserved better than that and I know it.</p>
+    </div>
+
+    <div class="letter-card">
+      <div class="letter-label">My apology letter</div>
+      <div class="letter-text">
+        I read your text, nodded like I understood, and proceeded to respond like a complete fool. I wasn't dismissing you — I just have the reading comprehension of a golden retriever. You matter to me, what you say matters to me, and I'm sorry I made you feel otherwise.
+      </div>
+      <div class="letter-sig">— Your favorite mistake 🥺</div>
+    </div>
+
+    <p class="section-label">Pick your apology gifts 👇 (choose as many as you want)</p>
+    <p class="scroll-hint">swipe to see all →</p>
+
+    <div class="gifts-scroll" id="giftsContainer">
+
+      <div class="gift-card" onclick="toggleGift(this, 'Pink Roses 🌸')">
+        <div class="gift-visual roses-bg">🌸</div>
+        <div class="gift-name">Pink Roses</div>
+        <div class="gift-sub">Fresh bouquet, just for you</div>
+      </div>
+
+      <div class="gift-card" onclick="toggleGift(this, 'Teddy Bear 🧸')">
+        <div class="gift-visual teddy-bg">🧸</div>
+        <div class="gift-name">Big Teddy</div>
+        <div class="gift-sub">Soft & huggable</div>
+      </div>
+
+      <div class="gift-card" onclick="toggleGift(this, 'Lindor Chocolates 🍬')">
+        <div class="gift-visual lindor-bg">🍬</div>
+        <div class="gift-name">Lindor</div>
+        <div class="gift-sub">Smooth truffle balls</div>
+      </div>
+
+      <div class="gift-card" onclick="toggleGift(this, 'Godiva Dark Chocolate 🍫')">
+        <div class="gift-visual godiva-bg">🍫</div>
+        <div class="gift-name">Godiva Dark</div>
+        <div class="gift-sub">Rich & luxurious</div>
+      </div>
+
+      <div class="gift-card" onclick="toggleGift(this, 'McFlurry 🍦')">
+        <div class="gift-visual mcflurry-bg">🍦</div>
+        <div class="gift-name">McFlurry</div>
+        <div class="gift-sub">Oreo or M&M, your call</div>
+      </div>
+
+    </div>
+
+    <div class="wishlist" id="wishlist">
+      <div class="wishlist-title">Your wish list</div>
+      <div class="wishlist-items" id="wishlistItems">
+        <span class="wishlist-empty">Tap any gift above to add it 💕</span>
+      </div>
+    </div>
+
+    <div class="accept-section">
+      <button class="accept-btn" onclick="acceptApology()">💕 I forgive you</button>
+      <button class="decline-btn" onclick="showNope()">No, not yet</button>
+    </div>
+
+  </div>
+
+  <div class="thankyou" id="thankyou">
+    <span class="big">🎉</span>
+    <h2>She said yes!!</h2>
+    <p>You are officially forgiven.<br>Your gifts are on their way. 🌸</p>
+    <div class="wishlist-summary" id="finalWishlist"></div>
+  </div>
+
+  <div class="nope" id="nope">
+    <span class="big">😭</span>
+    <h2>Okay, fair.</h2>
+    <p>You still deserve all the chocolates and roses though.<br>Take your time.</p>
+    <button class="retry-btn" onclick="retryApology()">Okay fine, I forgive him 🥺</button>
+  </div>
+</div>
+
+<script>
+  // Floating petals
+  const petalEmojis = ['🌸','🌷','💕','✨','🌺','🩷'];
+  const petalContainer = document.getElementById('petals');
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (7 + Math.random() * 8) + 's';
+    p.style.animationDelay = (Math.random() * 12) + 's';
+    p.style.fontSize = (13 + Math.random() * 13) + 'px';
+    petalContainer.appendChild(p);
+  }
+
+  let pickedGifts = [];
+
+  function toggleGift(el, name) {
+    const idx = pickedGifts.indexOf(name);
+    if (idx === -1) {
+      pickedGifts.push(name);
+      el.classList.add('picked');
+    } else {
+      pickedGifts.splice(idx, 1);
+      el.classList.remove('picked');
+    }
+    renderWishlist();
+  }
+
+  function renderWishlist() {
+    const container = document.getElementById('wishlistItems');
+    if (pickedGifts.length === 0) {
+      container.innerHTML = '<span class="wishlist-empty">Tap any gift above to add it 💕</span>';
+    } else {
+      container.innerHTML = pickedGifts.map(g => `<span class="wish-tag">${g}</span>`).join('');
+    }
+  }
+
+  function acceptApology() {
+    document.getElementById('main-content').style.opacity = '0';
+    setTimeout(() => {
+      document.getElementById('main-content').style.display = 'none';
+      const ty = document.getElementById('thankyou');
+      ty.style.display = 'block';
+      const fw = document.getElementById('finalWishlist');
+      if (pickedGifts.length > 0) {
+        fw.innerHTML = '<p><strong style="color:var(--pink-dark)">Her wish list 🎁</strong><br>' + pickedGifts.join(' · ') + '</p>';
+      }
+      launchConfetti();
+    }, 300);
+  }
+
+  function showNope() {
+    document.getElementById('main-content').style.opacity = '0';
+    setTimeout(() => {
+      document.getElementById('main-content').style.display = 'none';
+      document.getElementById('nope').style.display = 'block';
+    }, 300);
+  }
+
+  function retryApology() {
+    document.getElementById('nope').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+    setTimeout(() => { document.getElementById('main-content').style.opacity = '1'; }, 50);
+  }
+
+  function launchConfetti() {
+    const items = ['🎊','🎉','💕','🌸','✨','🧸','🍫','🍦'];
+    for (let i = 0; i < 36; i++) {
+      const c = document.createElement('div');
+      c.style.cssText = `position:fixed;top:40%;left:${5+Math.random()*90}%;font-size:${16+Math.random()*22}px;z-index:999;pointer-events:none;animation:fall ${1+Math.random()*2.5}s ease forwards;`;
+      c.textContent = items[Math.floor(Math.random()*items.length)];
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 3500);
+    }
+  }
+</script>
+</body>
+</html>
